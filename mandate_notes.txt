@@ -1,0 +1,7 @@
+Mandate rules whether an agent's own committed candidate satisfies every hard constraint of a mandate, before value moves.
+
+A rail can check an agent is allowed to buy; it cannot answer whether the thing it found actually matches what you asked for. That match is a judgement over a specific candidate, and a payment that moves before anyone makes it moves on trust.
+
+post_mandate(title, mandate) states what you want and its hard constraints. propose(mandate_id, candidate) commits a candidate on chain; the agent is the message sender. judge(proposal_id), open to anybody: a GenLayer round reads the candidate against the mandate and returns FITS / MISFITS / UNCLEAR. FITS only when every constraint holds; one unmet is MISFITS.
+
+The agent cannot force a FITS: consensus issues the verdict from the committed bytes. The contract fetches nothing, so no page can be forged and no one can propose for an agent who did not. An instruction hidden in a candidate is not evidence; proven on a real round.

@@ -1,0 +1,9 @@
+{
+  "name": "mandate",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A GenLayer primitive that rules whether an agent's committed candidate satisfies every hard constraint of a mandate, before value moves.",
+  "scripts": { "deploy": "node scripts/deploy.mjs", "prove": "node scripts/prove.mjs" },
+  "dependencies": { "ethers": "^6", "genlayer-js": "1.1.8" }
+}
