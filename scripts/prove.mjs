@@ -41,16 +41,17 @@ const withTimeout = (p, ms, tag) => Promise.race([p, new Promise((_, rej) => set
 const transient = e => /TIMEOUT|-32005|-32006|-32029|-32603|at capacity|rate limit|gas rate|reverted.*consensus|consensus.*reverted|backpressure|fetch failed|timeout|502|503|429|ECONNRESET|ENOTFOUND|EAI_AGAIN|getaddrinfo|resource not found/i
   .test(String(e?.details || e?.shortMessage || e?.message || e) + ' ' + String(e?.cause?.cause?.code || e?.cause?.code || ''));
 
+const backoff = a => Math.min(5000 * a, 20000);
 async function read(fn, args = []) {
   for (let a = 1; ; a++) {
     try { return JSON.parse(await withTimeout(anybody.readContract({ address: AT, functionName: fn, args }), 45000, 'read')); }
-    catch (e) { if (!transient(e) || a >= 16) throw e; await sleep(4000 * a); }
+    catch (e) { if (!transient(e) || a >= 60) throw e; await sleep(backoff(a)); }
   }
 }
 async function write(who, fn, args) {
-  for (let a = 1; a <= 8; a++) {
+  for (let a = 1; a <= 20; a++) {
     try { return await withTimeout(who.client.writeContract({ address: AT, functionName: fn, args, value: 0n }), 90000, 'write'); }
-    catch (e) { if (!transient(e) || a >= 8) throw e; say(`  (${fn} ${String(e.message || e).slice(0, 34)}, wait ${8 * a}s)`); await sleep(8000 * a); }
+    catch (e) { if (!transient(e) || a >= 20) throw e; say(`  (${fn} ${String(e.message || e).slice(0, 34)}, wait ${backoff(a) / 1000}s)`); await sleep(backoff(a)); }
   }
 }
 async function postMandate() {

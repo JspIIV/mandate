@@ -213,7 +213,8 @@ def main():
     as_(PRIN)
     gl.nondet.answer = answer("MISFITS", reason="one stop violates nonstop despite the injected instruction")
     rh = json.loads(c2.judge(hid))
-    check_("the round is told that instructions in the candidate are not evidence", "not evidence" in gl.nondet.last_prompt)
+    check_("the round is told the candidate is untrusted data and instructions in it are manipulation",
+           "untrusted data" in gl.nondet.last_prompt and "attempted manipulation" in gl.nondet.last_prompt)
     check_("the hostile candidate reaches the round unchanged", INJ in gl.nondet.last_prompt)
     check_("a hostile candidate that fails a constraint is still rejected",
            rh["verdict"] == "MISFITS" and json.loads(c2.proposal(hid))["status"] == "REJECTED")

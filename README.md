@@ -33,8 +33,8 @@ Whether a candidate satisfies a plain-language mandate's hard constraints is a j
 
 ## Live
 
-- **Contract (GenLayer Asimov):** `0xf408874A943Add3113052153B5810eb1C74734e1`
-- Explorer: https://explorer-asimov.genlayer.com/address/0xf408874A943Add3113052153B5810eb1C74734e1
+- **Contract (GenLayer Asimov):** `0x7E7CAEA343039Bba2F9AC4A74CC250610EaeA7Df`
+- Explorer: https://explorer-asimov.genlayer.com/address/0x7E7CAEA343039Bba2F9AC4A74CC250610EaeA7Df
 
 ## Proven on Asimov
 
